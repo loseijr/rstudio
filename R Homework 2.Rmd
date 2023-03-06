@@ -1,0 +1,116 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+###########################################
+*Accessing Datasets from R-Studio Packages*
+###########################################
+
+
+#1.a - Open the Datasets Package in R-Studio
+```{r}
+
+```
+
+#1.b - Load dataset that is called sleep from the Datasets Package
+```{r}
+
+#Note: the dataset is called sleep
+```
+
+#1.c - Save the original sleep dataset into R as an object & make a copy that we will work with
+```{r}
+
+
+#Hint: See Section where it says Good Practice/General Recommendation in the example video
+```
+
+
+###################################################
+*Characteristics/Descriptions of the Sleep Dataset*
+*Part 1*
+###################################################
+
+2.a. How many rows are there in the sleep dataset?
+```{r}
+
+```
+
+
+2.b How many columns are there in the sleep dataset?
+```{r}
+
+
+```
+
+2.c What are the name of columns in the sleep dataset?
+```{r}
+
+```
+
+
+2.d What type of variables are the 3 variables in the sleep dataset?
+```{r}
+
+```
+
+
+
+###################################################
+*Characteristics/Descriptions of the Sleep Dataset*
+*PART 2*
+###################################################
+
+3.a Run the head() & tail() function on the Sleep Dataset. What do you see when you run these functions?
+```{r}
+
+
+```
+
+
+3.b Run the summary() function on the Sleep Dataset. What do you see when you run these functions?
+```{r}
+
+```
+
+
+
+###################################################
+*Characteristics/Descriptions of the Sleep Dataset*
+*PART 3*
+###################################################
+
+4.a Run the describe() function on the sleep dataset. What does this function tell you that the structure() and summary() functions do not? You can ignore the column headings for things that we have not learned yet.
+
+```{r}
+
+
+#Note: Make sure to open up proper library first to access describe() & describe.by() function
+```
+
+4.b Run the describe.by() function on the sleep dataset for the grouping variable titled group. What does this output tell you? Why are there multiple outputs here?
+```{r}
+
+#Note: Grouping variable is called group
+```
+
+###################################
+*Opening Datasets from Local Files*
+###################################
+
+5.a Open both of the Stat 200 datasets listed on the course website under the folder titled R-Studio documents.
+```{r}
+#Excel Version
+
+
+#CSV Version
+
+
+```
+
+5.b Save the original Stat 200 datasets into R as an object & make a copy that we will work with. Do so for both the xlsx and csv datasets.
+```{r}
+
+```
+

@@ -1,0 +1,194 @@
+---
+title: "Lesson 3"
+author: "Jordan Epistola"
+date: "2/16/2021"
+output: html_document
+---
+
+#################
+*Important Note!*
+#################
+
+- After you run the install.packages("") function, make sure to put a # before it or delete the line to ensure that the code does not run again
+
+- If you try to knit with the install.packages("") function again, then it will run into problems as RStudio will have trouble installing the package again, since it is already installed.
+
+
+###########################################
+*Accessing Datasets from R-Studio Packages* 
+###########################################
+
+- We will start this lesson by accessing some datasets from the "datasets" package we used in Lesson 1.
+- Again, if you already installed this package into R you do not need run the install.packages() line again
+
+```{r}
+#install.packages("datasets")
+library(datasets)
+
+```
+
+
+
+#ChickWeight & VADeaths Dataset
+We will access these two datasets below in this package
+
+    - ChickWeight = Weight versus age of baby chickens on different diets
+    - VADeaths = Dataset of Death Rates in Virginia (1940)
+
+
+Good Practice/General Recommendation for Loading Datasets into R
+```{r}
+#Original Dataset
+ChickWeight
+VADeaths
+
+#Dataset we work with
+dat.working1 <- ChickWeight
+dat.working2 <- VADeaths
+
+#Viewing Dataset
+dat.working1
+dat.working2
+```
+
+
+###################################
+*Opening Datasets from Local Files*
+###################################
+
+#Installing Packages to Load Datasets
+
+    - To open up excel files and csv files we first need to install and then open a package that allows us to do
+    - Below are popular packages for opening excel & Csv files
+    
+```{r}
+#Excel Datasets
+#install.packages("readxl")
+library(readxl)
+
+#CSV Datasets
+#install.packages("readr")
+library(readr)
+
+
+#Note: Remember to delete the install.packages() line or put a # in front of it 
+```
+
+Opening Excel Dataset
+
+    - If the datafile is located in the same folder you can just type the name of the dataset in " "
+    - If the datafile is located in a different folder, you can find it by typing ../ and selecting enter
+
+    - For this assignment we will work on a STAT200 Dataset which examines test scores and variety of other predictors such as:
+          - How much sleep students got
+          - If students used computers or paper to write notes
+
+Datasets can be in different formats. The most common forms are 'xlsx' and 'csv.'
+```{r}
+# This is an example -- you will need to change the green text to the place where the data file is located ON YOUR OWN COMPUTER
+
+Excel.dat.orginal <- read_xlsx("STAT200 Data.xlsx")
+Excel.dat.orginal <- read_xlsx("../Stat 200 - Spring 2021/STAT200 Data.xlsx")
+
+Excel.dat.working <- Excel.dat.orginal
+
+Excel.dat.working
+```
+
+Opening CSV Dataset
+```{r}
+CSV.dat.orginal <- read.csv("STAT200 Data.csv")
+CSV.dat.orginal <- read.csv("../Stat 200 - Spring 2021/STAT200 Data.csv")
+
+CSV.dat.working <- CSV.dat.orginal
+
+CSV.dat.working
+```
+
+Make sure the excel & csv files match the function that is chosen! 
+If you have an xlsx make sure to use the read_xlsx()
+```{r}
+#error1 <- read_xlsx("STAT200 Data.csv")
+
+```
+
+#########################
+*Basic Dataset Functions* VIDEO 4
+#########################
+
+In this section we will show several basic dataset commands using the PSYC200 Dataset we loaded into R. 
+Let use the Excel File (Excel.dat)
+
+Viewing Dataset
+```{r}
+#View Entire Data
+View(Excel.dat.working)
+
+#Top 5 & Bottom 5
+head(Excel.dat.working)
+tail(Excel.dat.working)
+```
+
+Structure & Summary of Dataset
+```{r}
+#str() allows us to see the structure of the variables in the dataset
+str(Excel.dat.working)
+
+#summary provides us with a summary of the variables in the dataset
+summary(Excel.dat.working)
+
+```
+
+Descriptives of Dataset
+```{r}
+#Number of Rows & Columns
+nrow(Excel.dat.working)
+ncol(Excel.dat.working)
+
+#Column names
+colnames(Excel.dat.working)
+
+```
+
+#########################
+*More Dataset Functions*
+#########################
+
+Further Summaries of Dataset
+```{r}
+#Located in install.packages() function
+install.packages("psych")
+library(psych)
+
+
+##################
+#Describe Function
+##################
+#describe() also provides us a clean summary/information on the variables in the dataset
+describe(Excel.dat.working)
+describe(Excel.dat.working, na.rm = TRUE)
+  #describe(dataset, na.rm = TRUE/FALSE)
+
+
+#Note: More information provided on describe function here: https://www.rdocumentation.org/packages/psych/versions/2.0.12/topics/describe
+```
+
+Describe By does the same function as describe but it can separate the datasets out by groups...
+
+    - The PSYC200 dataset contains variables about GPA and variety of variables that affect GPA
+    - Ex: # Hours students sleep, Note Mode (paper notes or computer notes), etc.
+    
+```{r}
+#####################
+#Describe By Function
+#####################
+#describe.by() provides us a clean summary/information on the variables in the dataset FOR A SPECIFIC GROUP
+
+# Let's look at the means of test scores for each condition
+
+describe.by(Excel.dat.working, Excel.dat.working$`Note Taking Modality (paper =1 or computer =2)`)
+  #describe(dataset, dataset$group)
+  
+
+#Note3: More information provided here: https://www.rdocumentation.org/packages/psych/versions/2.0.12/topics/describeBy
+```
