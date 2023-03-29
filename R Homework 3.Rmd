@@ -1,0 +1,264 @@
+= = = = ---
+title: "Lesson 4"
+author: "Jordan Epistola"
+date: "3/2/2021"
+output: word_document
+---
+
+#################
+*Important Note!*
+#################
+
+
+- Please refer to the following link first if you have questions
+
+    - https://umd.instructure.com/courses/1301142/pages/frequently-asked-questions-r-studio
+
+
+######################
+*Student Expectations*
+######################
+
+RStudio is difficult to learn, so try not to get too discouraged if you run into errors! Running into errors is something that even the most advanced RStudio users run into, and learning how to debug them and fix them are very important skills for RStudio and Programming in general. Again, RStudio is becoming the norm in psychology and is an important skill that will help you in the future.
+
+As such, we highly recommend that you check the solutions below and/or Google solutions when you run into issues on RStudio. 
+
+If you do need to contact Ben or a TA for help, please try at least 3 solutions on your own first to fix the issue. Try to read the error issue to diagnose what the error is about. Learning how to problem solve and fix issues is a critical skill with RStudio and programming in general.
+
+Also, please contact us before Sunday night as we will not be able to answer all of your questions in a timely manner the night before the assignment is due.
+
+
+#########################################
+#########################################
+*Section One*
+*Function Review & Referencing Variables*
+#########################################
+#########################################
+
+#Opening/Loading Dataset
+```{r}
+#Let's Open the CSV File
+read.csv()
+
+
+```
+
+#Make a Working Copy
+```{r}
+
+
+```
+
+
+#Run the Following Functions on the Working Copy
+- Write what each function tells you below
+```{r}
+#Colnames()
+
+"Write what this function tells you here"
+```
+
+```{r}
+#str()
+#summary()
+
+"Write what these functions tells you here"
+```
+
+```{r}
+#Head()/Tail()
+
+"Write what these functions tells you here"
+```
+
+```{r}
+#View()
+
+"Write what this function tells you here"
+```
+
+
+#Reference the Sleep & Motivation Columns from the Working Dataset
+```{r}
+
+
+#Note: Try doing so using the [ ] feature
+#Note: [Rows, Columns]
+```
+
+
+#Select Rows 1, 25 & 1:10 in the Working Dataset
+```{r}
+#Row 1 Only
+
+
+#Row 25 Only
+
+
+#Row 1:10 Only
+
+
+```
+
+
+############################################
+############################################
+*Section Two*
+*Extracting & Building Vectors / Dataframes*
+############################################
+############################################
+
+#Create a Vector for Sleep, Motivation & Exam Scores (Separate)
+```{r}
+#Student Sleep
+Sleep1 <-
+
+#Student Motivation
+Motivation1 <-
+
+#Student Exam Scores
+ExamScores1 <-
+
+```
+
+
+#Create another Vector for Sleep, Motivation & Exam Scores but for only the FIRST 10 Rows(Separate)
+```{r}
+#Student Sleep (First 10 Rows Only)
+Sleep2 <-
+
+#Student Motivation (First 10 Rows Only)
+Motivation2 <-
+  
+#Student Exam Scores (First 10 Rows Only)
+ExamScores2 <-
+  
+```
+
+#View each of the 6 vectors you made using the head & tail function
+```{r}
+#Student Sleep
+Head()
+Tail()
+#Student Motivation
+
+#Student Exam Scores
+
+#Student Sleep (First 10 Rows Only)
+
+#Student Motivation (First 10 Rows Only)
+
+#Student Exam Scores (First 10 Rows Only)
+
+```
+
+
+###############
+*Section Three*
+*Subsetting*
+###############
+
+#Review Original Dataset Structure & Review Factors
+```{r}
+#Review Structure of Original Data using str()
+
+
+```
+
+#Change Note_Type_T1 & Stats Anxiety from Numeric to Factor
+
+    - Note this is the part of the example that includes as.factor()
+    
+```{r}
+#Note Mode T1
+
+
+
+    #Paper = 1
+    #Computer = 2
+
+
+#Stats Anxiety
+
+
+    #1 - Low Anxiety
+    #2 - Medium Anxiety
+    #3 - High Anxiety
+```
+
+#Check if you were able to change Note_Type_T1 from Numeric to Factor using str & levels function
+```{r}
+#str()
+
+#levels()
+```
+
+#Launch the Psych package using library & then use describe.by() for the Note_Type_T1 factor
+```{r}
+library()
+describe.by()
+
+#Note: To launch psych and access describe.by you need to call the psych package using the library function
+```
+
+
+*Alternative Method to Subset Variables by Factors*
+
+#Examine Exam Scored by each Factor of Note_Type_T1
+```{r}
+##############################################
+#Subset factors directly using the [] function
+##############################################
+
+#Note Mode 1
+
+
+#Note Mode 2
+
+
+
+#Example: data$variableofinterest[data$factorofinterest == ValueindicatingFactor]
+```
+
+```{r}
+#########################################
+#Mean of Scores per Each Subsetted Factor
+#########################################
+
+#Mean Exam Scores for Note Mode 1
+
+
+#Mean Exam Scores for Note Mode 2
+
+
+#Note: to get the standard deviation, just use the sd() function
+#Example: mean(data$variableofinterest[data$factorofinterest == ValueindicatingFactor])
+```
+
+*AND Logical Operator*
+```{r}
+#####################
+#AND LOGICAL OPERATOR
+#####################
+
+#Get the Exam Scores for students who took notes by paper (1) and who have high statistics anxiety (3)
+
+
+    #The Mean
+
+
+    #Length (How many Rows qualified)
+
+
+
+#Example: data$variableofinterest[data$factorofinterest == ValueindicatingFactor & data$factorofinterest == ValueindicatingFactor]
+```
+
+
+####################################
+#More Information also Provided Here
+#####################################
+
+#https://www.statmethods.net/management/operators.html
+#https://www.statmethods.net/management/subset.html
+```
