@@ -1,0 +1,163 @@
+---
+title: "R HW 4"
+author: "David Xiao"
+date: "4/6/2021"
+output:
+  word_document: default
+---
+
+*R-Homework 4: Instructions*
+
+    - For this assignment, you will be asked a series of questions that cover the past material we have learned.
+    - There are many different ways and functions that you can use to answer the questions!
+    - Feel free to use any of these methods/functions to answer the question.
+
+
+
+################################
+#Question 1- Opening the Dataset
+################################
+
+    a) Open either the STAT 200 Data 4.8 XLSX Dataset
+    b) Create a original & working copy of the dataset
+    
+```{r}
+
+
+
+#Note: This dataset has been updated and is located on the R Module 4 Canvas Page
+```
+
+
+##################################################
+#Question 2- Data Cleaning: Mean/Median Imputation
+##################################################
+
+    
+    a) Calculate the mean or median of "Scores" variable
+```{r}
+
+
+#Note: Use the "Scores Variable" and not the "Scores.Missing" Variable
+```
+    
+    
+    b) Now, do Mean or Median Imputation for the "Scores.Missing" Variable in the Dataset. Use the mean or median value you calculated in 2a to impute. 
+```{r}
+
+
+#Note 1: Make sure to update the Dataset with the Imputed Scores.Missing Variable.
+
+#Note 2: There should be no NAs in the Scores.Missing Variable in the Dataset if you complete 2b correctly
+```
+    
+    c) Reference the top 5 rows for the "Scores.Missing" variable in the dataset.
+```{r}
+
+
+#Note: Case 2 should be a mean or median. Not a NA in the dataset.
+```
+
+
+#############################
+#Question 3- Basic Commands 1
+#############################
+
+    a) What are the variable names of the Dataset? Use a function to show the variable names and then write them in the quote section below.
+```{r}
+
+
+"Write variable names here"
+```
+
+    b) What type of variable is "Scores.Missing", "Sleep", "Note_Type_Name" & "Stat.Anxiety". Write your answer in the quotes below.
+```{r}
+
+"Scores.Missing- "
+"Sleep- "
+"Note_Type_Name- "
+"Stat.Anxiety"
+
+```
+    
+    c) Change the variable "Stat.Anxiety" into a factor variable in the working dataset.
+```{r}
+
+
+
+```
+    
+    d) Show how "Stat.Anxiety" is a factor variable in the working dataset now.
+```{r}
+
+
+#Note: Stat.Anxiety should not be listed as a numeric variable
+```
+   
+    
+#############################
+#Question 4- Basic Commands 2
+#############################
+
+    a) Load the "psych" package into R
+```{r}
+
+```
+
+    b) Use the describe.by() function with the Stat.Anxiety variable as the factor of interest.
+```{r}
+
+
+#Note: There should be 3 different datasets for each level of Stat.Anxiety
+```
+    
+    
+    c) What is the mean for the "Scores.Missing" variable for all participants in the dataset?
+```{r}
+
+
+```
+
+
+    d) What are the means for the "Scores.Missing" variable for participants with low statistics anxiety, medium statistics anxiety & high statistics anxiety?
+```{r}
+#Mean for Low Statistics Anxiety
+
+
+
+#Mean for Medium Statistics Anxiety
+
+
+
+#Mean for High Statistics Anxiety
+
+
+
+```
+
+
+#######################
+#Question 5- Subsetting
+########################
+
+    a) Find the exam scores for students with low Statistics Anxiety Only 
+```{r}
+
+```    
+    
+    b) Find the exam scores for students with Sleep Scores GREATER than 300
+```{r}
+
+```
+
+    c) Find the exam scores for students with Sleep Scores LESS than or EQUAL to 300
+```{r}
+
+```
+
+    d) Find the exam scores for students with low statistics anxiety only AND sleep scores GREATER than 300
+```{r}
+
+
+#Note: Output should be- 72 85 95 65 84 84 84 72 83 83 82 82 82 81 80 96 81 89 85 67 73 73 81 79 78 88 77 77 76 76
+```

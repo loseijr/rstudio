@@ -1,0 +1,336 @@
+---
+title: "R Interactive Video 4"
+author: "Zizhong Xiao"
+date: "3/29/2021"
+output: word_document
+---
+
+############################
+############################
+*Video 1. Review of Early Lessons*
+############################
+############################
+
+- We will start by first opening the STAT 200 Data Update - 4.8 XLSX file in the dataset. 
+- Remember to create a original file and a working file
+
+
+#################
+#Opening Datasets
+#################
+
+#XLSX File
+- We will start by opening the XLSX Dataset
+- We will make original copies and working copies
+```{r}
+library(readxl)
+data.original1 <- read_xlsx("STAT200 Data Update - 4.8.xlsx")
+data.working <- data.original1
+```
+
+
+##############################
+Structure & Summary of Dataset
+##############################
+```{r}
+#str() allows us to see the structure of the variables in the dataset
+str(data.working)
+
+#summary provides us with a summary of the variables in the dataset
+summary(data.working)
+```
+
+
+##################################
+#Describe / Describe.By() Datasets
+##################################
+
+#Be sure to have library(psych) to run the describe() functions
+```{r}
+library(psych)
+```
+
+
+#describe()
+```{r}
+#describe() also provides us a clean summary/information on the variables in the dataset
+  #describe(dataset)
+describe(data.working)
+
+#Note: More information provided on describe function here: https://www.rdocumentation.org/packages/psych/versions/2.0.12/topics/describe
+```
+
+#describe.by()
+```{r}
+#describe.by() provides us a clean summary/information on the variables in the dataset FOR A SPECIFIC GROUP
+
+#I am interested in the scores, by ANXIETY group
+
+################################
+#Preparing the Data into Factors
+################################
+
+#Original Dataset Structure
+str(data.original1)
+
+#The orignal data for anxiety is "numbers", but I want it to be a "factor"
+
+#Converting Stat Anxiety from Numeric to Factors
+data.working$Stat.Anxiety_Name<-as.factor(data.working$Stat.Anxiety_Name)
+  #Low Anxiety
+  #Medium Anxiety
+  #High Anxiety
+
+#Observing Change from Numeric to Factor
+str(data.working)
+
+
+#################
+#Running the Code
+#################
+#describe(dataset, dataset$group)
+describe.by(data.working, data.working$Stat.Anxiety_Name)
+#Note2: More information provided here: https://www.rdocumentation.org/packages/psych/versions/2.0.12/topics/describeBy
+```
+
+
+#####################################
+#####################################
+*Video 2. Review of R Lesson 4: Subsetting*
+#####################################
+#####################################
+
+#Selecting specific Variables in the Dataset
+```{r}
+#This is how to Extract a specific variable via $
+data.working$Sleep
+data.working$Motivation
+  #dataset$variable
+
+#This is how to Extract a specific variables (columns) via []
+data.working[,2]
+data.working[,3]
+data.working[,2:3]
+  #dataset[row,column]
+
+#This is how to Extract a specific participants (row) via []
+data.working[1,]
+data.working[3,]
+data.working[1:3,]
+
+#This is how to Extract a specific variable AND row via []
+data.working[1,1] #row 1 and column 1
+data.working[1:3, 1:3] #row 1 to 3 & column 1 to 3
+```
+
+
+###############
+*Subsetting*
+###############
+
+- Here we look at exam scores by each factor of Statistics Anxiety by directly referencing variables we are interested in using [ ] and logical operators
+
+#Factors
+- Here we subset for Factors
+```{r}
+#Exam Scores for Students with Low Stat Anxiety (Stat Anxiety == 1)
+data.working$Scores[data.working$Stat.Anxiety == 1]
+#Exam Scores for Students with High Stat Anxiety (Stat Anxiety == 3)
+data.working$Scores[data.working$Stat.Anxiety == 3]
+```
+
+#Numeric
+- Here we subset for numerical information
+```{r}
+#Exam Scores for Students with Motivation Equal to 5
+data.working$Scores[data.working$Motivation ==5]
+#Exam Scores for Students with Motivation Greater than 5
+data.working$Scores[data.working$Motivation > 5]
+#Exam Scores for Students with Motivation Less than 5
+data.working$Scores[data.working$Motivation < 5]
+```
+
+#######################
+#AND Logical Operator &
+#######################
+```{r}
+#Exam Scores for Statistics Anxiety Low (1) & Motivation Greater than 5
+data.working$Scores[data.working$Stat.Anxiety == 1 & data.working$Motivation > 5]
+
+data.working$Scores[data.working$Stat.Anxiety == 1 & data.working$Sleep > 300]
+
+#Exam Scores for Statistics Anxiety High (3) & Motivation Less than or Equal to 5
+data.working$Scores[data.working$Stat.Anxiety == 3 & data.working$Motivation <=5]
+```
+
+
+
+######################
+######################
+*Video 3. Cleaning Datasets*
+######################
+######################
+
+Much of work in RStudio and data analysis involves processing datasets. This is not the glamorous part of statistical analysis but it makes up more than 75% of the job itself. In this section, we will discuss three popular methods for data cleaning.
+
+
+First, let's check the Total Sample Size of Dataset
+```{r}
+#Sample Size Original/Working Datasets
+nrow(data.original1)
+nrow(data.working)
+#as we can see, N = 90 as we have 90 participants in total
+```
+
+Now, lets reference the variables that have missing data to them. Here when we reference the missing_data variable, we can see that we are missing some values below
+```{r}
+data.working$Stat.Anxiety
+data.working$Stat.Anxiety.Missing
+#Note: The Missing Data is referenced as NA
+```
+
+*The missing data is very common and may be due to:*
+    
+    - Participant Fatigue
+    - Privacy Concerns
+    - Connectivity Issues
+   
+
+For data analysis, the easiest way to address missing values consist of three methods:
+
+    1) Listwise Deletion
+    2) Casewise Deletion
+    3) Mean/Median Imputation
+
+Now, we will discuss these three methods.
+
+
+###################
+*Listwise Deletion*
+###################
+
+    - This method refers to deleting all rows in the dataset that contain at least one missing data value in all of the variables
+    - na.omit() can be used to limit data to only rows with data for all variables
+    - One Problem with this method is that it can eliminate a lot of data
+
+```{r}
+data.listwise.deletion <- na.omit(data.working)
+data.listwise.deletion #Notice the Missing_Data Column
+View(data.listwise.deletion)
+
+#Compare Listwise & Working
+head(data.original1$Stat.Anxiety.Missing)
+head(data.listwise.deletion$Stat.Anxiety.Missing)
+
+nrow(data.original1) #N = 90
+nrow(data.listwise.deletion) #N = 67
+```
+
+
+###################
+*Casewise Deletion*
+
+    - This method refers to just ignoring the data for a certain type of analysis when it is missing
+    - R requires us to do this for many analyses by ignoring the data that is missing a value; but also does it automatically for some analyses by ignoring the data that is missing a value.
+    
+
+#Example where R Does not do it Automatically
+
+    - To specify casewise deletion manually, you can input a na.rm = TRUE within the function itself.
+
+```{r}
+#R Does not Work
+mean(data.working$Stat.Anxiety.Missing)
+median(data.working$Stat.Anxiety.Missing)
+
+
+#R Works when we do it Manually
+mean(data.working$Stat.Anxiety.Missing, na.rm = TRUE)
+median(data.working$Stat.Anxiety.Missing, na.rm = TRUE)
+```
+
+
+#Example where R Does it Automatically
+
+    - However, sometimes R functions do casewise deletion automatically!
+    - The cor.test() function does this!
+    - Unfortunately, we have to check each function to see how it treats missing data. 
+
+
+#Example where R does Casewise Deletion Automatically
+```{r}
+#Correlation between Statistics Anxiety (Missing) & Exam Scores
+cor.test(data.working$Stat.Anxiety.Missing, data.working$Scores)
+    #cor = -.14
+    #df = 74
+
+```
+
+
+########################
+*Median/Mean Imputation*
+
+    - This method refers to filling in the missing data values with the mean or median of said variable
+    - For instance if the mean is 5 for motivation variable, we would fill in all of the NAs for motivation variable with 5's
+    - The benefits of mean/median imputation is that it allows us to have more data to use for our analyses
+    - The major downside is that it reduces our variability in the dataset
+    
+    
+Preparing Data for Mean/Median Imputation
+```{r}
+#Create a Copy for Mean Imputation
+mean_impute <- data.working
+median_impute <- data.working
+
+#Calculate Mean/Median for Stat Anxiety, using casewise deletion
+mean(mean_impute$Stat.Anxiety.Missing, na.rm=TRUE)
+median(median_impute$Stat.Anxiety.Missing, na.rm = TRUE)
+    #Mean = 1.986842
+    #Median = 2
+
+```
+
+#Doing Mean Imputation
+
+```{r}
+################
+#Mean Imputation
+################
+
+"NameofDataset$VariabletoReference[is.na(#nameofDataset$VariabletoReference)] <- ValuetoReplaceMissingData"
+
+#Mean Imputation
+mean_impute$Stat.Anxiety.Missing[is.na(mean_impute$Stat.Anxiety.Missing)]<-1.9868642
+
+#Observing Change
+mean_impute$Stat.Anxiety.Missing
+
+#Compare to Old
+data.working$Stat.Anxiety.Missing
+
+#Note: Significant figures also now change since we added a bunch of figures when we added the mean (e.g., 1.9868642)
+```
+
+
+Doing Median Imputation
+
+    - Same format as Mean Imputation, except now we just use 2 instead of 1.9868642
+    
+```{r}
+##################
+#Median Imputation
+##################
+
+"NameofDataset$VariabletoReference[is.na(#nameofDataset$VariabletoReference)] <- ValuetoReplaceMissingData"
+
+#Mean Imputation
+median_impute$Stat.Anxiety.Missing[is.na(median_impute$Stat.Anxiety.Missing)] <- 2
+
+#Observing Change
+median_impute$Stat.Anxiety.Missing
+
+#Compare to Old
+data.working$Stat.Anxiety.Missing
+
+#Note: Significant figures do not chance since we did not add extra figures after adding the median (e.g, 2)
+```
