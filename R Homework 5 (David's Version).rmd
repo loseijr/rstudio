@@ -1,0 +1,295 @@
+---
+title: "R Homework 5.rmd"
+author: "Zizhong David Xiao"
+date: "5/01/2023"
+output: html_document
+---
+
+#################################
+#################################
+*R Homework 5: Big Data Analysis*
+#################################
+#################################
+
+In this assignment we will do our first big data analysis with a real dataset!
+
+(Make sure to download the YRBSS Dataset on the Canvas Page)
+
+
+This assignment will consist of four parts. Reference the R Lesson videos if you have any questions.
+
+- 1. Part 1: Uploading Datasets
+- 2. Part 2: Data Cleaning
+- 3. Part 3: Data Descriptives
+- 4. Part 4: Correlational Analysis
+- 5. Part 5: Two-Sample T-Test Analysis
+
+
+#####################
+*Dataset Information*
+Youth Risk Behavior Surveillance System (YRBSS)
+https://www.cdc.gov/healthyyouth/data/yrbs/index.html (More information here)
+#####################
+
+    The Youth Risk Behavior Surveillance System (YRBSS) monitors six categories of health-related behaviors that contribute to the leading causes of death and disability among youth and adults, including—
+
+    - Behaviors that contribute to unintentional injuries and violence
+    - Sexual behaviors related to unintended pregnancy and sexually transmitted diseases, including HIV infection
+    - Alcohol and other drug use
+    - Tobacco use
+    - Unhealthy dietary behaviors
+    - Inadequate physical activity
+
+    YRBSS also measures the prevalence of obesity and asthma and other health-related behaviors plus sexual identity and sex of sexual contacts.
+    
+    YRBSS is a system of surveys. It includes 1) a national school-based survey conducted by CDC and state, territorial, tribal, and 2) local surveys conducted by state, territorial, and local education and health agencies and tribal governments. 
+    
+
+#UMD Resources (https://www.counseling.umd.edu/)
+    
+    Counseling Services
+    Business Hours: 8:30 a.m to 4:30 p.m. ( Monday through Friday)
+    After-Hours Crisis Support Phone Services: 4:30 pm to 8:30 am weekdays, 24 hours/day over the weekend
+    Phone Number: (301) 314-7651.
+    
+    Accessibility and Disability Services
+    Business Hours: 8:30 a.m to 4:30 p.m. (Monday through Friday)
+    Phone Number: (301) 314-7682.
+
+
+###########################
+###########################
+#Part 1: Uploading Datasets
+###########################
+###########################
+
+Just as in every assignment, we will first load the YRBSS dataset from our downloaded files.
+    
+#Uploading Dataset
+```{r}
+library(readxl)
+
+
+#Note: Get in the habit of always doing a original copy and then working copy.
+```
+
+
+
+#######################
+#######################
+#Part 2: Data Cleaning
+#######################
+#######################
+
+After we uploaded the dataset, now we will to do some data cleaning for it. 
+
+
+Since this dataset is already very large, we will do "Listwise Deletion" method for cleaning...
+```{r}
+
+
+#Do this on the working dataset
+```
+
+How many rows of data did we lose from listwise deletion?
+```{r}
+
+
+#Hint (compare the # rows of the original dataset with the working dataset)
+```
+
+
+
+############################
+############################
+#Part 3: Describing Datasets
+############################
+############################
+
+How many Variables & Rows are there in the dataset? (Provide Code Below & Answer in " ")
+```{r}
+#Variables
+"Insert Answer Here"
+
+#Rows
+"Insert Answer Here"
+```
+
+
+Now Check if the Structure of the Variables are Correct in the Dataset
+```{r}
+#Show Structure of Dataset
+
+```
+
+
+Convert the Sex Variable from a Character to a Factor Variable in the Working Dataset
+```{r}
+
+```
+
+
+Check if you were able to successful change the Sex Variable into a Factor Variable in the Working Dataset
+```{r}
+
+#Note:
+    #Female = 1
+    #Male = 2
+```
+
+
+
+#############################
+#############################
+#Part 4: Correlation Analysis
+#############################
+#############################
+
+Using the variables in the YRBSS dataset (listed on the Word Document titled YRBSS Variables), select appropriate variables for the correlation analysis:
+
+        - Correlation Analysis: Two Ordinal or Continuous Variables
+
+
+Feel free to select any variables that you are interested in! We are doing our first real statistical analysis here.
+
+```{r}
+#What Two Variables Did you Pick? 
+"Insert Answer Here"
+
+#Why did you pick them?
+"Insert Answer Here"
+
+
+```
+
+```{r}
+#Make a hypothesis of the relationship between the variables. Try to reference actual Psychological Theory and/or Empirical Research. 
+"Insert Answer Here"
+
+#What type of Correlation do you need to run? Pearson or Spearman?
+"Insert Answer Here"
+
+```
+
+Describe the Variables you Selected
+```{r}
+#Are these two variables continuous or ordinal?
+"Insert Answer Here"
+
+
+#What is the Mean & Median for Variable 1?
+"Insert Answer Here"
+
+
+#What is the Mean & Median for Variable 2?
+"Insert Answer Here"
+```
+
+######################
+*Statistical Analysis*
+######################
+
+Now let's use the cor.test() function to test our correlational analysis.
+```{r}
+
+
+#Note: Make sure to designate pearson or spearman... If you do not, pearson will be the default.
+```
+
+Was your hypothesis supported? How do you know?
+```{r}
+"Insert Answer Here"
+
+#Note: Reference the p-value and directionality of the relationship
+```
+
+Provide an explanation for why your hypothesis was supported or not supported. Again try to reference psychological theory or any possible limitations of the survey design and/or sample of the dataset.
+```{r}
+"Insert Answer Here"
+
+
+```
+
+
+
+##################################
+##################################
+Part 5.	Two-Sample T-Test Analysis
+##################################
+##################################
+
+Using the variables in the YRBSS dataset (listed on the Word Document titled YRBSS Variables), select appropriate variables for the correlation analysis:
+
+        - Two-Sample T-Test Analysis: One Binary Variable & One Continuous or Ordinal Variable
+
+Again, feel free to select any variables that you are interested in!
+
+
+```{r}
+#What Two Variables Did you Pick?
+"Insert Answer Here"
+
+#Why did you pick them?
+"Insert Answer Here"
+
+```
+
+```{r}
+#Make a hypothesis of the relationship between the variables. Try to reference actual Psychological Theory and/or Empirical Research. 
+"Insert Answer Here"
+
+```
+
+Describe the Variables you Selected
+```{r}
+#First, Make sure that your binary factor is a factor variable! Use levels() to check if you were able to successfully convert the variable to a factor variable.
+
+
+```
+
+```{r}
+#What is the sample size (i.e., # of rows) for each of level of the Binary Factor Variable?
+"Insert Answer Here"
+
+
+#Hint: try Googling the table() function to do this... This is a shortcut! Otherwise you can try other methods we have learned to do so. There are many ways to do this!
+```
+
+```{r}
+#What is the Mean & Median for the  Continuous or Ordinal Variable?
+"Insert Answer Here"
+
+
+#Is this variable Continuous or Ordinal?
+"Insert Answer Here"
+
+```
+
+######################
+*Statistical Analysis*
+######################
+
+Now let's use the t.test() function to test our two-sample t-test. Let's make our t-test two-sided and assume that the variance of both groups are equal (i.e. pooled variance estimate or student's t-test)!
+
+Remember X will be our binary factor variable and y will be our ordinal/continuous variable.
+```{r}
+
+
+#Hint: t.test(y variable ~ x variable, alternative = "two.sided or one.sided", var.equal = TRUE or FALSE)
+#Hint: t.test(y variable ~ x variable, alternative = "two.sided", var.equal = TRUE)
+```
+
+Was your hypothesis supported? How do you know?
+```{r}
+"Insert Answer Here"
+
+#Note: Reference the p-value and directionality of the relationship (reference the means)
+#Note: Remember what group 1 & group 2 refer to!
+```
+
+Provide an explanation for why your hypothesis was supported or not supported. Again try to reference psychological theory or any possible limitations of the survey design and/or sample of the dataset.
+```{r}
+"Insert Answer Here"
+
+
+```

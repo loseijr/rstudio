@@ -1,0 +1,319 @@
+---
+title: "R Interactive Video 5"
+author: "Zizhong (David) Xiao"
+date: "4/28/2023"
+output: word_document
+---
+
+###############################
+###############################
+*Video 1_R Lesson 6: Big Data Analysis*
+###############################
+###############################
+
+In this lesson, we will integrate all of the material from our prior lessons and then apply them to analyze a real-world dataset!
+
+- 1. Part 1: Uploading Datasets
+- 2. Part 2: Data Cleaning
+- 3. Part 3: Data Descriptives
+- 4. Part 4: Data Analysis (Correlation & T-Tests)
+
+
+###################
+*Dataset Information*
+Youth Risk Behavior Surveillance System (YRBSS)
+https://www.cdc.gov/healthyyouth/data/yrbs/index.html (More information here)
+###################
+
+    The Youth Risk Behavior Surveillance System (YRBSS) monitors six categories of health-related behaviors that contribute to the leading causes of death and disability among youth and adults, including—
+
+    - Behaviors that contribute to unintentional injuries and violence
+    - Sexual behaviors related to unintended pregnancy and sexually transmitted diseases, including HIV infection
+    - Alcohol and other drug use
+    - Tobacco use
+    - Unhealthy dietary behaviors
+    - Inadequate physical activity
+
+    YRBSS also measures the prevalence of obesity and asthma and other health-related behaviors plus sexual identity and sex of sexual contacts.
+
+    YRBSS is a system of surveys. It includes 1) a national school-based survey conducted by CDC and state, territorial, tribal, and 2) local surveys conducted by state, territorial, and local education and health agencies and tribal governments. 
+    
+
+#UMD Resources (https://www.counseling.umd.edu/)
+    
+    Counseling Services
+    Business Hours: 8:30 a.m to 4:30 p.m. ( Monday through Friday)
+    After-Hours Crisis Support Phone Services: 4:30 pm to 8:30 am weekdays, 24 hours/day over the weekend
+    Phone Number: (301) 314-7651.
+    
+    Accessibility and Disability Services
+    Business Hours: 8:30 a.m to 4:30 p.m. (Monday through Friday)
+    Phone Number: (301) 314-7682.
+
+
+###########################
+###########################
+#Part 1: Uploading Datasets
+###########################
+###########################
+
+We will use the YRBSS Dataset that is located in our files section. This dataset is just a subset of the entire YRBSS Dataset.
+
+Sample Size of 14,765! (This is Relatively Huge for Social Science Research)
+
+Reference the attached Word File (YRBSS Variables) on the class module page to see how each of these variables were scored.
+
+Variables:
+      
+      ID (Participant Number)
+      Age
+      Sex Assigned at Birth (Male/Female)
+      
+      How Often Participant Carries a Gun
+      How Often Participant Carries a Gun at School
+      
+      How Often Participant Feels Unsafe on way to School
+      How Often Participant is Threatened at School
+      
+      If participant has been forced to have sexual intercourse
+      How many times Participant has been victim of any sexual violence
+      
+      If Participant has been Bullied at School
+      If Participant has been Bullied Online
+      
+      If Participant Considered Suicide
+      If Participant Made Suicide Plan
+      How many times Participant Attempted Suicide
+      
+      How Often Participant Drinks Alcohol (per Week)
+      How Often Participant Binge Drinks (per Month)
+      Most Drinks of Alcohol Participant has had in one day (per Month)
+      
+      How many times Participant used Cocaine
+      How many times Participant used Inhalant
+      How many times Participant used Heroin
+      How many times Participant used Meth
+      How many times Participant used Ecstasy
+      How many times Participant used Steroid
+      How many times Participant used Ever Abused Prescription Drugs
+      
+    
+#Uploading Dataset
+```{r}
+library(readxl)
+dat.org <- read_xlsx("YRBSS_Psyc200.xlsx")
+#working copy
+dat <- dat.org
+```
+
+
+#######################
+#######################
+#Part 2:	Data Cleaning
+#######################
+#######################
+
+After we uploaded the data,  we will to do some data cleaning for it. 
+
+Since this dataset is already very large, we will do "Listwise Deletion" method for cleaning. 
+```{r}
+dat.clean<-na.omit(dat)
+```
+
+However, notice that we lose nearly 50% of our data here! So there are negatives too that come with list-wise deletion.
+```{r}
+nrow(dat)
+nrow(dat.clean)
+```
+
+In most cases, mean imputation is the default (common) method for data cleaning. BUT, it is not appropriate for factor variables nor binary variables.
+
+    - Ex: Mean Imputation Inappropriate for...
+      - Gender at Birth (Binary-Factor)
+      - Forced Sex (binary)
+      - Bullied at School (binary)
+      - Bullied Online (binary)
+      - Suicide Consider (binary)
+      - Suicide Plan (binary)
+      
+
+############################
+############################
+#Part 3: Describing Datasets
+############################
+############################
+
+#Basic Dataset Functions
+```{r}
+#Dimensions (7874 Rows Long, 25 Variables)
+dim(dat.clean)
+
+#Variables
+colnames(dat.clean)
+```
+
+#Check Datasets if Structures are Correct
+```{r}
+#Structure
+str(dat.clean)
+```
+
+Here we see that Sex is a Character Variable. We will want to change these variables.
+
+    - Sex --> Factor Variable
+
+```{r}
+#Convert Sex to Factor (please pay attention to this process, many of you had questions)
+dat.clean$Sex <- as.factor(dat.clean$Sex)
+
+#Checking if Variable now a Factor
+str(dat$Sex) #Original
+str(dat.clean$Sex) #New
+    #Female = 1
+    #Male = 2
+
+
+```
+
+Describe Dataset
+```{r}
+library(psych)
+describe(dat.clean)
+```
+
+
+#######################################
+#######################################
+Part 4.	Conducting Statistical Analyses
+#######################################
+#######################################
+
+##############
+*Correlations*
+##############
+
+#Correlation Function
+```{r}
+?cor.test()
+```
+
+*Pearson Correlation*
+- 2 Continuous Variables
+    - X: How many times Participant has been victim of any sexual violence
+    - y: How many times participant has used cocaine
+```{r}
+#Pearson
+cor.test(dat.clean$Sex_Violence, dat.clean$Ever_Cocaine, method = "pearson")
+
+
+###Results###
+#Significant Correlation
+#Positive Weak Correlation
+#Increases in Sex Violence positively associated with more uses of Cocaine
+
+###Formula###
+#cor.test(x, y, method = "name")
+```
+
+*Spearman Correlation*
+- If at least 1 or both variables are ordinal
+- More appropriate technically speaking than Pearson Correlation for last analysis as the Threat at School & Cocaine use variables are both ordinal in nature (they do notincrease at a constant rate)
+
+
+```{r}
+#Spearman
+cor.test(dat.clean$Sex_Violence, dat.clean$Ever_Cocaine, method = "spearman")
+
+###Results###
+#Significant Correlation
+#Positive Weak Correlation
+#Increases in Sex Violence positively associated with greater cocaine use, even after using spearman instead of Pearsons
+#Slightly less (but in theory more accurate) correlation than the previous question! .22 --> .12
+
+###Formula###
+#cor.test(x, y, method = "name")
+```
+
+
+###################
+*Video 2a_One-Sample T-Test*
+###################
+
+According to drugrehab.com, full-time college students drink on average of 6.4 days per month (https://www.drugrehab.com/2016/06/07/college-student-drinking-statistics/)
+
+In this test we will see if this value (6.4) is significantly different than the YRBSS participants (middle schoolers & high schoolers) - the concept of one-sampled T-test.
+
+#Alcohol Days
+
+    During the past 30 days, on how many days did you have at least one drink of alcohol? 
+      1.	0 days 
+      2.	1 or 2 days 
+      3.	3 to 5 days 
+      4.	***6 to 9 days (where 6.4 is located)***
+      5.	10 to 19 days 
+      6.	F. 20 to 29 days 
+      7.	G. All 30 days 
+
+```{r}
+?t.test()
+#t.test(x, mu = null value, alternative = "one or two-sided") - directional or non-directional?
+```
+
+Are YRBSS students drinking habits per month different than full-time college students?
+```{r}
+t.test(dat.clean$Alcohol_Days, mu = 4, alternative = "two.sided")
+#Note: mu = 4, because 6.4 drinks is between 6 to 9
+
+###Results###
+#Significant One-Sample T-Test
+#Mean of X = 1.47 (vs. 4)
+#YRBSS Participants drink significantly less than Full-time College Students
+```
+
+
+###################
+*Video 2b_Two-Sample T-Test*
+###################
+
+- Also referred to as an Independent Samples T-Test
+- Occur when we are compare the mean of some DV between two different groups
+
+In this analysis we will compare whether the mean of suicide attempts is significantly different for YRBSS participants who have been bullied at school.
+
+#Bullied at School (IV) - the independent (grouping) variable
+
+    During the past 12 months, have you ever been bullied on school property? 
+      Yes (2)
+      No  (1)
+
+#Suicide Attempt (DV) - the dependent variable
+
+    During the past 12 months, how many times did you actually attempt suicide? 
+    1.	0 times 
+    2.	1 time 
+    3.	2 or 3 times
+    4.	4 or 5 times
+    5.	6 or more times 
+
+
+Same function but we put different inputs in here! 
+```{r}
+?t.test()
+
+#t.test(y variable ~ x variable, alternative = "two.sided or one.sided", var.equal = TRUE or FALSE)
+
+#var.equal = TRUE --> Pooled Variance Estimate (equal variance)
+#var.equal = FALSE --> Unpooled Variance Estimate (unequal variance)
+#In this case, the variance is FALSE.
+```
+
+Do suicide attempts differ for participants who have been bullied or not at school?
+```{r}
+t.test(dat.clean$Suicide_Attempt ~ dat.clean$Bullied_School, alternative = "two.sided", var.equal = FALSE)
+###Results###
+#Significant Two-Sample T-Test
+#Suicide Attempts significantly differ for participants who have been bullied at school
+#Suicide Attempts greater in group 2 (bullied at school) than group 1 (not bullied at school). 
+
+```
+
